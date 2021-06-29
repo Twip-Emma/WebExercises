@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时间间隔</title>
+</head>
+
+<body>
+    <div class="foot_power">
+        <!-- 网站基本备注 -->
+        <h3>©2021-2022 | 湘ICP备xxxx号
+            <p title="Thanks" target="_blank">
+                Twip | Emma | <a title="你想干什么？" href="https://space.bilibili.com/178547325">七画不是八画</a></p>
+            <!-- 计算时间 -->
+            <p title="2021/04/24 20:00:00" name="show_time" style="cursor: progress;"></p>
+        </h3>
+    </div>
+    <script>
+        function show_date_time() {
+            var tm = document.getElementsByName("show_time");
+            //console.log(tm);
+            //for循环动态获取写时间的地方
+            for (var i = 0; i < tm.length; i++) {
+                tm[0].innerText = "七画一只妖の主页已存活" + getDateDiff(tm[0].title);
+                //console.log(tm[i]); 
+                //window.setTimeout("show_date_time()", 1000);
+            }
+        }
+
+        //每秒更新一次
+        setInterval(show_date_time, 1000);
+
+        //计算时间间隔
+        function getDateDiff(st, en) {
+            //创建出生时间对象和现在时间对象
+            var BirthDay = new Date(st);
+            var today;
+            if (en != undefined) {
+                today = new Date(en);
+            } else {
+                today = new Date();
+            };
+
+            var timeold = (today.getTime() - BirthDay.getTime());
+            //获取两个时间间隔的秒数
+            var sectimeold = timeold / 1000;
+            //floor(x) 返回小于x的最大整数
+            var secondsold = Math.floor(sectimeold);
+            var msPerDay = 24 * 60 * 60 * 1000;
+            //获取间隔天数
+            var e_daysold = timeold / msPerDay;
+            var daysold = Math.floor(e_daysold);
+            //获取间隔小时数
+            var e_hrsold = (e_daysold - daysold) * 24;
+            var hrsold = Math.floor(e_hrsold);
+
+            var e_minsold = (e_hrsold - hrsold) * 60;
+            var minsold = Math.floor((e_hrsold - hrsold) * 60);
+            var seconds = Math.floor((e_minsold - minsold) * 60);
+            return checkTime(daysold) + "天" + checkTime(hrsold) + "小时" + checkTime(minsold) + "分" + checkTime(seconds) + "秒";
+        }
+        //单位数0补齐
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+    </script>
+</body>
+
+</html>
