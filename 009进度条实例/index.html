@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #myProgress {
+            width: 1000px;
+            background-color: #ddd;
+        }
+        
+        #myBar {
+            width: 1%;
+            height: 30px;
+            background-color: #4CAF50;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JavaScript 进度条</h1>
+
+    <div id="myProgress">
+        <div id="myBar"></div>
+    </div>
+    <div id="show"></div>
+
+    <br>
+    <button onclick="move()">点我</button>
+</body>
+<script>
+    function move() {
+        var bar = document.getElementById("myBar");
+        var stop = 1;
+        var go = setInterval(frame, 100);
+        //var show = document.getElementById("show");
+
+        function frame() {
+            if (stop == 100) {
+                clearInterval(go);
+            } else {
+                stop++;
+                bar.style.width = stop + "%";
+                bar.innerHTML = stop + "%";
+            }
+        }
+    }
+</script>
+
+</html>

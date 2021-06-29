@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>点击按钮，表格 name 字段按字母排序:</p>
+    <p><button onclick="sortTable()">排序</button></p>
+
+    <table border="1" id="myTable">
+        <tr>
+            <th>Name</th>
+            <th>Country</th>
+        </tr>
+        <tr>
+            <td>Berglunds snabbkop</td>
+            <td>Sweden</td>
+        </tr>
+        <tr>
+            <td>North/South</td>
+            <td>UK</td>
+        </tr>
+        <tr>
+            <td>Alfreds Futterkiste</td>
+            <td>Germany</td>
+        </tr>
+        <tr>
+            <td>Koniglich Essen</td>
+            <td>Germany</td>
+        </tr>
+        <tr>
+            <td>Magazzini Alimentari Riuniti</td>
+            <td>Italy</td>
+        </tr>
+        <tr>
+            <td>Paris specialites</td>
+            <td>France</td>
+        </tr>
+        <tr>
+            <td>Island Trading</td>
+            <td>UK</td>
+        </tr>
+        <tr>
+            <td>Laughing Bacchus Winecellars</td>
+            <td>Canada</td>
+        </tr>
+    </table>
+    <script>
+        function sortTable() {
+            var list = document.getElementById("myTable");
+            var check = true;
+            while (check) {
+                check = false;
+                var checkChange = false;
+                var trs = list.getElementsByTagName("TR");
+                //console.log(trs);
+                for (var i = 1; i < (trs.length - 1); i++) {
+                    //trs = list[i].getElementsByTagName("tr");
+                    var x = trs[i].getElementsByTagName("TD")[0];
+                    var y = trs[i + 1].getElementsByTagName("TD")[0];
+                    //check = true;
+                    console.log(x, y);
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        //check = true;
+                        checkChange = true;
+                        break;
+                    }
+                }
+
+                if (checkChange) {
+                    trs[i].parentNode.insertBefore(trs[i + 1], trs[i]);
+                    check = true;
+                }
+
+            }
+            // console.log(list);
+        }
+    </script>
+</body>
+
+</html>

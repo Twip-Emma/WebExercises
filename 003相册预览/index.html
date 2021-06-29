@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+            margin: 0;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        .row>.column {
+            padding: 0 8px;
+        }
+        
+        #pic {
+            height: 300px;
+            width: 500px;
+        }
+        
+        #picDown {
+            height: 200px;
+            width: 500px;
+        }
+        
+        #picBig {
+            height: 800px;
+            width: 1200px;
+        }
+        
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        
+        .column {
+            float: left;
+            width: 25%;
+        }
+        /* 弹窗背景 */
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: black;
+        }
+        /* 弹窗内容 */
+        
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            width: 90%;
+            max-width: 1200px;
+        }
+        /* 关闭按钮 */
+        
+        .close {
+            color: white;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #999;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .mySlides {
+            display: none;
+        }
+        
+        .cursor {
+            cursor: pointer
+        }
+        /* 上一页 & 下一页 按钮 */
+        
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        /* 定位下一页按钮到右侧 */
+        
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        /* 鼠标移动上去修改背景色为黑色 */
+        
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        /* 页数(1/3 etc) */
+        
+        .numbertext {
+            color: #f2f2f2;
+            font-size: 12px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 0;
+        }
+        
+        img {
+            margin-bottom: -4px;
+        }
+        
+        .caption-container {
+            text-align: center;
+            background-color: black;
+            padding: 2px 16px;
+            color: white;
+        }
+        
+        .demo {
+            opacity: 0.6;
+        }
+        
+        .active,
+        .demo:hover {
+            opacity: 1;
+        }
+        
+        img.hover-shadow {
+            transition: 0.3s
+        }
+        
+        .hover-shadow:hover {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 图片改为你的图片地址 -->
+    <h2 style="text-align:center">Lightbox</h2>
+
+    <div class="row">
+        <div class="column">
+            <img src="001.jpg" id="pic" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
+        </div>
+        <div class="column">
+            <img src="002.jpg" id="pic" onclick="openModal();currentSlide(2)" class="hover-shadow cursor">
+        </div>
+        <div class="column">
+            <img src="003.png" id="pic" onclick="openModal();currentSlide(3)" class="hover-shadow cursor">
+        </div>
+        <div class="column">
+            <img src="004.jpg" id="pic" onclick="openModal();currentSlide(4)" class="hover-shadow cursor">
+        </div>
+    </div>
+
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <span class="close cursor" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+
+            <div class="mySlides">
+                <div class="numbertext">1 / 4</div>
+                <img id="picBig" src="001.jpg" style="width:100%">
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">2 / 4</div>
+                <img id="picBig" src="002.jpg" style="width:100%">
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">3 / 4</div>
+                <img id="picBig" src="003.png" style="width:100%">
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">4 / 4</div>
+                <img id="picBig" src="004.jpg" style="width:100%">
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <div class="caption-container">
+                <p id="caption"></p>
+            </div>
+
+
+            <div class="column">
+                <img id="picDown" class="demo cursor" src="001.jpg" style="width:100%" onclick="currentSlide(1)" alt="提线木偶">
+            </div>
+            <div class="column">
+                <img id="picDown" class="demo cursor" src="002.jpg" style="width:100%" onclick="currentSlide(2)" alt="泉">
+            </div>
+            <div class="column">
+                <img id="picDown" class="demo cursor" src="003.png" style="width:100%" onclick="currentSlide(3)" alt="彩幻境">
+            </div>
+            <div class="column">
+                <img id="picDown" class="demo cursor" src="004.jpg" style="width:100%" onclick="currentSlide(4)" alt="梦芭蕾">
+            </div>
+        </div>
+    </div>
+    <script>
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            slideIndex += n
+            showSlides(slideIndex);
+            //showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            slideIndex = n;
+            showSlides(slideIndex);
+            //showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides"); //编号的字
+            var dots = document.getElementsByClassName("demo"); //图
+            var captionText = document.getElementById("caption"); //底层文字
+
+            //轮播图左右变换
+            if (n > slides.length) {
+                slideIndex = 1;
+            }
+            if (n < 1) {
+                slideIndex = slides.length;
+            }
+
+            //遍历【字】全部初始为none
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            //遍历【图片】全部移除active样式
+            //link:激活的，hover:鼠标悬停的，visited:访问过的，active:鼠标按下去的
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+
+            //最后为当前位置的内容全部显示出来【字】【图片】
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+
+            //显示文本
+            captionText.innerHTML = dots[slideIndex - 1].alt;
+        }
+    </script>
+</body>
+
+</html>

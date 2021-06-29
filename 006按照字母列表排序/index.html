@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>点击按钮按字母列表排序:</p>
+    <button onclick="sortList()">排序</button>
+    <ul id="id01">
+        <li>Oslo</li>
+        <li>Stockholm</li>
+        <li>Helsinki</li>
+        <li>Berlin</li>
+        <li>Rome</li>
+        <li>Madrid</li>
+        <li>Boss</li>
+        <li>Cat</li>
+    </ul>
+    <script>
+        function sortList() {
+            /*
+            .toLowerCase()字符串转成小写
+            .toUpperCase()字符串转成大写
+            */
+            var list = document.getElementById("id01");
+            var pai = true;
+            while (pai) {
+                pai = false;
+                var exange = false; //默认不交换
+                var items = list.getElementsByTagName("li");
+                for (var i = 0; i < (items.length - 1); i++) {
+                    if (items[i].innerHTML.toLowerCase() > items[i + 1].innerHTML.toLowerCase()) {
+                        exange = true; //顺序不对，需要交换
+                        break;
+                    }
+                }
+                if (exange) {
+                    //b[i].parentNode.insertBefore(b[i + 1], b[i]);
+                    items[i].parentNode.insertBefore(items[i + 1], items[i]);
+                    pai = true; //交换了，说明此列表最近一次遍历不是顺序的
+                }
+            }
+
+
+            //以下是标准答案
+            /*
+            var list, i, switching, b, shouldSwitch;
+            list = document.getElementById("id01");
+            switching = true;
+            /*做一个循环，直到没有切换完成:
+            while (switching) {
+                //先说：不切换:
+                switching = false;
+                b = list.getElementsByTagName("LI");
+                //循环浏览所有列表项:
+                for (i = 0; i < (b.length - 1); i++) {
+                    //首先说不应该有切换：
+                    shouldSwitch = false;
+                    /*检查下一项是否应与当前项交换位置:
+                    if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+                        /*如果下一项的字母顺序低于当前项，则标记为开关并中断循环:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    /*如果已标记开关，则制造开关并将开关标记为完成:
+                    b[i].parentNode.insertBefore(b[i + 1], b[i]);
+                    switching = true;
+                }
+            }*/
+        }
+    </script>
+</body>
+
+</html>
